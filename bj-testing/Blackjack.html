@@ -284,8 +284,9 @@ onload=setup;
                <div id="betdiv"></div>
                <label id="betAmt" for="bet">Your Bet:&ensp;</label>
                <input class="footerBtn" type=text size=6 id="bet">
-               <input id="hitBtn" type=button id="hitButton" value="Hit" onclick="hit()" disabled>
+               <input class="hitBtn" type=button id="hitButton" value="Hit" onclick="hit()" disabled>
                <input class="footerBtn" type=button id="standButton" value="Stand" onclick="stand()" disabled>
                <input class="footerBtn" type=button id="newGameButton" value="New Game" onClick="startGame()">
+               <span id="message" style="color:#600; font-weight:bold">Welcome to Blackjack!<br>Click "New Game" to Begin.</span>
       </div>
 </body>
