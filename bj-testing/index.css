@@ -1,0 +1,121 @@
+#bet {
+  font-size: 2vh;
+}
+button {
+  font-family: "Playfair Display SC", serif;
+  font-size: 2vh;
+  height: 3vh;
+  margin-top: 1vh;
+  width: 14vh;
+}
+
+.card-container {
+  border: solid 2px rgb(255, 255, 255, 0.5);
+  height: 30vh;
+  margin-left: 2vh;
+  margin-right: 2vh;
+  width: 20vh;
+}
+
+#dealer-container {
+  border-bottom: solid 2px rgb(255, 255, 255, 0.5);
+  height: 42vh;
+}
+
+.dealer-player-header {
+  display: flex;
+  flex-direction: column;
+  font-size: 2vh;
+  height: 4vh;
+  list-style: none;
+  text-align: center;
+}
+
+.dealer-player-list {
+  padding-top: 1vh;
+}
+
+#dice-icon {
+  color: gold;
+}
+
+#footer-container {
+  display: flex;
+  flex-direction: row;
+  font-size: 3vh;
+  border-bottom: solid 2px rgb(255, 255, 255, 0.5);
+  height: 6vh;
+  padding-top: 1vh;
+}
+
+.footer-objects-right {
+  margin-left: 2vh;
+}
+
+.footer-objects {
+  font-size: 2vh;
+  padding-right: 2vh;
+  padding-top: 1vh;
+}
+
+#header-container {
+  border-bottom: solid 2px rgb(255, 255, 255, 0.5);
+  border-top: solid 2px rgb(255, 255, 255, 0.5);
+  height: 6vh;
+}
+
+html {
+  background-color: #222;
+  color: rgb(255, 255, 255, 0.5);
+  font-family: "Playfair Display SC", serif;
+}
+
+#hotel-icon {
+  color: #ff1534;
+}
+
+input {
+  font-family: "Playfair Display SC", serif;
+}
+
+.input-options {
+  font-size: 3vh;
+  height: 2vh;
+  margin-top: 1vh;
+  margin-right: auto;
+  width: 4vw;
+}
+
+#main-container {
+  border-bottom: solid 2px rgb(255, 255, 255, 0.5);
+  height: 84vh;
+}
+
+.main-card-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 40vh;
+  padding-top: 18vh;
+}
+
+#message {
+  font-size: 2vh;
+  margin-top: 1vh;
+}
+
+#nav-logo {
+  font-size: 4vh;
+  list-style: none;
+  text-align: center;
+  text-shadow: 0 0 5px rgb(255, 255, 255, 0.7);
+}
+
+#player-container {
+  height: 42vh;
+}
+
+#user-icon {
+  color: #1553ff;
+}
