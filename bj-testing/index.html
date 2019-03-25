@@ -48,7 +48,7 @@
       money = 1000;
       moneyDisplay.innerHTML = "$" + money;
       betInput = document.getElementById("bet");
-      betInput.value = 10;
+      betInput.value = 25;
       betInput.disabled = false;
       standButton.disabled = true;
       hitButton.disabled = true;
@@ -133,8 +133,8 @@
         money += bet;
       else
         money -= bet;
-      message.innerHTML = (win ? "Congratulations! You win.  " : "Sorry! You lose.  ") + why +
-        (money > 0 ? "<br>Click 'New Game' to play again." : "<br>Bankrupt!");
+      message.innerHTML = (win ? "Player wins. " : "Player loses. ") + why +
+        (money > 0 ? "" : "");
       standButton.disabled = true;
       hitButton.disabled = true;
       newGameButton.disabled = true;
@@ -142,7 +142,7 @@
       if (dealerCards[2].faceDown) {
         dealerCards[2].cardContainer.style.display = "none";
         dealerCards[2].setFaceUp();
-        new Effect.SlideDown(dealerCards[2].cardContainer, { duration: 0.5, queue: "end" });
+        new Effect.SlideDown(dealerCards[2].cardContainer, { duration: 0.2, queue: "end" });
       }
       new Effect.Fade(moneyDisplay, {
         duration: 0.2,
@@ -150,7 +150,7 @@
         afterFinish: function () {
           moneyDisplay.innerHTML = "$" + money;
           new Effect.Appear(moneyDisplay, {
-            duration: 0.5,
+            duration: 0.2,
             queue: "end",
             afterFinish: function () {
               if (money <= 0) {
