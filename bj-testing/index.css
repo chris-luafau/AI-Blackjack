@@ -1,11 +1,6 @@
-html {
-  overflow: hidden;
-}
-
 #bet {
   font-size: 2vh;
 }
-
 button {
   font-family: "Playfair Display SC", serif;
   font-size: 2vh;
@@ -16,7 +11,6 @@ button {
 
 .card-container {
   border: solid 2px rgb(255, 255, 255, 0.5);
-  border-radius: 5%;
   height: 30vh;
   margin-left: 2vh;
   margin-right: 2vh;
@@ -103,11 +97,7 @@ input {
   align-items: center;
   justify-content: center;
   height: 40vh;
-<<<<<<< HEAD
   padding-top: 8vh;
-=======
-  padding-top: 3vh;
->>>>>>> e75573ccf06c1b07296d19660193cc2ca525f54d
 }
 
 #message {
@@ -119,13 +109,7 @@ input {
   font-size: 4vh;
   list-style: none;
   text-align: center;
-  text-shadow: 0 0 5px rgb(255, 255, 255, .8);
-  -webkit-transition: all 1s;
-  -moz-transition: all 1s;
-  transition: all 1s;
-  -webkit-animation: neon1 1s ease-in-out infinite alternate;
-  -moz-animation: neon1 1s ease-in-out infinite alternate;
-  animation: neon1 1s ease-in-out infinite alternate;
+  text-shadow: 0 0 5px rgb(255, 255, 255, 0.7);
 }
 
 #player-container {
@@ -135,33 +119,3 @@ input {
 #user-icon {
   color: #1553ff;
 }
-<<<<<<< HEAD
-=======
-
-@-webkit-keyframes neon1 {
-  from {
-    text-shadow: 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #ff6f00, 0 0 10px #ff6f00, 0 0 10px #ff6f00, 0 0 10px #ff6f00, 0 0 10px #ff6f00;
-  }
-  to {
-    text-shadow: 0 0 5px #fff, 0 0 5px #fff, 0 0 5px #fff, 0 0 5px #ff6f00, 0 0 5px #ff6f00, 0 0 5px #ff6f00, 0 0 5px #ff6f00, 0 0 5px #ff6f00;
-  }
-}
-
-@-moz-keyframes neon1 {
-  from {
-    text-shadow: 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #ff6f00, 0 0 10px #ff6f00, 0 0 10px #ff6f00, 0 0 10px #ff6f00, 0 0 10px #ff6f00;
-  }
-  to {
-    text-shadow: 0 0 5px #fff, 0 0 5px #fff, 0 0 5px #fff, 0 0 5px #ff6f00, 0 0 5px #ff6f00, 0 0 5px #ff6f00, 0 0 5px #ff6f00, 0 0 5px #ff6f00;
-  }
-}
-
-@keyframes neon1 {
-  from {
-    text-shadow: 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #ff6f00, 0 0 10px #ff6f00, 0 0 10px #ff6f00, 0 0 10px #ff6f00, 0 0 10px #ff6f00;
-  }
-  to {
-    text-shadow: 0 0 5px #fff, 0 0 5px #fff, 0 0 5px #fff, 0 0 5px #FF1177, 0 0 5px #FF1177, 0 0 5px #FF1177, 0 0 5px #FF1177, 0 0 5px #FF1177;
-  }
-}
->>>>>>> e75573ccf06c1b07296d19660193cc2ca525f54d
