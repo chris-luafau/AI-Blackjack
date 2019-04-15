@@ -11,36 +11,22 @@ function Card(value, suit) {
 
 }
 
-/*
- * some constants that can be used to refer to non-numeric card values.
- */
 Card.ACE = 1;
 Card.JACK = 11;
 Card.QUEEN = 12;
 Card.KING = 13;
-
-/*
- * Some constants that can be used to refer to suits.
- */
 Card.CLUB = 1;
 Card.DIAMOND = 2;
 Card.SPADE = 4;
 Card.HEART = 3;
 
-/**
- *  The clear method sets the value and suit of the card to -1,
- *  representing an undefined card.
- */
+// Erase card;
 Card.prototype.clear = function() {
    this.suit = -1;
    this.value = -1;
 }
 
-/**
- * The set method sets the value and suit of a card.
- * @param value the value of the card, a number in the range 1 to 13
- * @param suit the suit of the card, a number in the range 1 to 4
- */
+// Set value and suit of card.
 Card.prototype.set = function (value, suit) {
    if (arguments.length < 2)
       throw "The set function requires two arguments.";
@@ -54,10 +40,7 @@ Card.prototype.set = function (value, suit) {
    this.value = v;
 }
 
-/**
- * a card's toString method returns a string such as "Ace of Hearts"
- * or "2 of Diamonds".
- */
+// Return string value of a card.
 Card.prototype.toString = function() {
     if (this.value == -1)
        return "(Card not shown)";
@@ -79,14 +62,7 @@ Card.prototype.toString = function() {
     return s;
 }
 
-/**
- * An object of type Deck is a standard deck of 52 playing cards.
- * The constructor creates the cards in a standard order.  The
- * shuffle method must be called to place them into a random order.
- * Note that it is assumed that the individual cards in this deck will
- * not be modified.
- * @constructor
- */
+// Construct a deck of 52 cards.
 function Deck() {
    this.deck = new Array(52);
    this.count = 52;
@@ -96,10 +72,7 @@ function Deck() {
          this.deck[c++] = new Card(j,i);
 }
 
-/**
- * Returns any cards that have been dealt to the deck and shuffles
- * them into a random order.
- */
+// Shuffle deck.
 Deck.prototype.shuffle = function() {
    for (var i = 51; i > 0; i--) {
        var r = Math.floor((i+1)*Math.random(i));
@@ -110,13 +83,8 @@ Deck.prototype.shuffle = function() {
    this.count = 52;
 }
 
-/**
- * The nextCard method removes the next available card from
- * the deck and returns it.  If called when all cards have
- * already been dealt, an exception is thrown.
- * @return the next available card in the deck.
- */
-Deck.prototype.nextCard = function() {
+// Draw card.
+Deck.prototype.drawCard = function() {
    if (this.count == 0)
       throw "Deck is out of cards";
    return this.deck[--this.count];

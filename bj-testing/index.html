@@ -66,7 +66,7 @@
     }
 
     function dealCard(cards, runOnFinish, faceDown) {
-      var crd = deck.nextCard();
+      var crd = deck.drawCard();
       cards.count++;
       if (faceDown)
         cards[cards.count].setFaceDown();
@@ -181,11 +181,11 @@
       });
     }
 
-    function dealersTurnAndEndGame() {
+    function dealerTurnAndFinish() {
       message.innerHTML = "Dealer's turn...";
       dealerCards[2].cardContainer.style.display = "none";
       dealerCards[2].setFaceUp();
-      var takeNextCardOrFinish = function() {
+      var pullCardOrFinish = function() {
         new Effect.SlideDown(dealerCards[dealerCards.count].cardContainer, {
           duration: 0.2,
           queue: "end",
@@ -193,9 +193,9 @@
             var dealerTotal = getTotal(dealerCards);
             if (dealerCards.count < 5 && dealerTotal <= 16) {
               dealerCards.count++;
-              dealerCards[dealerCards.count].setCard(deck.nextCard());
+              dealerCards[dealerCards.count].setCard(deck.drawCard());
               dealerCards[dealerCards.count].setFaceUp();
-              takeNextCardOrFinish();
+              pullCardOrFinish();
             } else if (dealerTotal > 21)
               endGame(true, "Dealer has gone over 21.");
             else if (dealerCards.count == 5)
@@ -212,7 +212,7 @@
           }
         });
       };
-      takeNextCardOrFinish();
+      pullCardOrFinish();
     }
 
     function hit() {
@@ -227,7 +227,7 @@
         else if (playerCards.count == 5)
           endGame(true, "You took 5 cards without going over 21.");
         else if (playerTotal == 21)
-          dealersTurnAndEndGame();
+          dealerTurnAndFinish();
         else {
           message.innerHTML = "You have " + playerTotal + ". Hit or Stand?";
           hitButton.disabled = false;
@@ -241,7 +241,7 @@
         return;
       hitButton.disabled = true;
       standButton.disabled = true;
-      dealersTurnAndEndGame();
+      dealerTurnAndFinish();
     }
 
     function playAI() {
@@ -253,7 +253,7 @@
             // Check to see if hit or stand, every 3 seconds.
             setInterval(function() {
               playerTotal = getTotal(playerCards);
-              
+
               // TODO: Decision tree code.
               /*
               // Code to grab the card values in the AI player's current hand
