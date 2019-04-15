@@ -31,6 +31,18 @@
 
     var standButton, hitButton, newGameButton; // objects representing the buttons, so I can enable/disable them
 
+    function createArray(length) {
+        var arr = new Array(length || 0),
+            i = length;
+
+        if (arguments.length > 1) {
+            var args = Array.prototype.slice.call(arguments, 1);
+            while(i--) arr[length-1 - i] = createArray.apply(this, args);
+        }
+
+        return arr;
+    }
+
     function setup() {
       for (var i = 1; i <= 5; i++) {
         dealerCards[i] = new DisplayedCard("dealer" + i);
@@ -124,8 +136,6 @@
       }
     }
 
-
-
     function endGame(win, why) {
       if (win)
         money += bet;
@@ -170,7 +180,6 @@
         }
       });
     }
-
 
     function dealersTurnAndEndGame() {
       message.innerHTML = "Dealer's turn...";
@@ -244,6 +253,21 @@
             // Check to see if hit or stand, every 3 seconds.
             setInterval(function() {
               playerTotal = getTotal(playerCards);
+              
+              // TODO: Decision tree code.
+              /*
+              // Code to grab the card values in the AI player's current hand
+              player_curr_hand = [];
+              for (var i = 1; i <= playerCards.count; ++i) {
+                curr_hand.push(playerCards[i].card.value);
+              }
+              // Get dealer's faceup card.
+              dealer_curr_faceup = dealerCards[1];
+              */
+
+              // Insert decision tree code here.
+
+              //
               if (playerTotal < 17) {
                 hit();
               } else {
