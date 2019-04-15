@@ -1,7 +1,3 @@
-/* This file has been put into the public domain by its
- * author, David Eck (http://math.hws.edu/eck), with no
- * guarantees or claims about what it might be good for.
- */
 
 function DisplayedCard(divid, card) {
    this.card = card || new Card(Card.ACE, Card.SPADE);
@@ -63,5 +59,3 @@ DisplayedCard.prototype.setFaceUp = function () {
       this.faceDown = !Boolean(arguments[0]);
    this.setPositionAndClip();
 }
-
-

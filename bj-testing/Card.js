@@ -1,28 +1,14 @@
-/* This file has been put into the public domain by its
- * author, David Eck (http://math.hws.edu/eck), with no
- * guarantees or claims about what it might be good for.
- */
 
-/*
- * This file defines a Card class to represent the standard 52 playing cards
- * and a Deck class to represents a deck of cards.
- */
+ // @constructor
 
-/**
- * Constructs a card.  When called with no parameters, a card
- * with value and suit set to -1 is created.  It can also be called
- * with two arguments specifying the value and suit of the card, where
- * value is a number in the range 1 to 13 and suit is in the range 1 to 4.
- * @constructor
- */
 function Card(value, suit) {
-    
+
     this.suit = -1;
     this.value = -1;
-    
+
     if (arguments.length >= 2)
        this.set(arguments[0], arguments[1]);
-    
+
 }
 
 /*
@@ -42,7 +28,7 @@ Card.SPADE = 4;
 Card.HEART = 3;
 
 /**
- *  The clear method sets the value and suit of the card to -1, 
+ *  The clear method sets the value and suit of the card to -1,
  *  representing an undefined card.
  */
 Card.prototype.clear = function() {
@@ -95,9 +81,9 @@ Card.prototype.toString = function() {
 
 /**
  * An object of type Deck is a standard deck of 52 playing cards.
- * The constructor creates the cards in a standard order.  The 
+ * The constructor creates the cards in a standard order.  The
  * shuffle method must be called to place them into a random order.
- * Note that it is assumed that the individual cards in this deck will 
+ * Note that it is assumed that the individual cards in this deck will
  * not be modified.
  * @constructor
  */
@@ -135,4 +121,3 @@ Deck.prototype.nextCard = function() {
       throw "Deck is out of cards";
    return this.deck[--this.count];
 }
-

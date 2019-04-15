@@ -5,8 +5,7 @@
   <title>Blackjack</title>
   <meta charset="UTF-8" />
   <meta name="description" content="Black UI Mockup" />
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
   <link href="https://fonts.googleapis.com/css?family=Playfair+Display+SC" rel="stylesheet" />
   <link rel="stylesheet" href="index.css" />
   <script type="text/javascript" src="Card.js"></script>
@@ -14,12 +13,11 @@
   <script type="text/javascript" src="prototype.js"></script>
   <script type="text/javascript" src="scriptaculous.js?load=effects"></script>
   <script type="text/javascript">
-
-    var dealerCards = [];  // Arrays holding the DisplayCard objects used to show the cards
+    var dealerCards = []; // Arrays holding the DisplayCard objects used to show the cards
     var playerCards = [];
 
-    dealerCards.count = 0;  // Number of cards actually in the dealer's hand
-    playerCards.count = 0;   // Number of cards actually in the player's hand
+    dealerCards.count = 0; // Number of cards actually in the dealer's hand
+    playerCards.count = 0; // Number of cards actually in the player's hand
 
     var deck = new Deck();
 
@@ -31,7 +29,7 @@
     var moneyDisplay;
     var message;
 
-    var standButton, hitButton, newGameButton;  // objects representing the buttons, so I can enable/disable them
+    var standButton, hitButton, newGameButton; // objects representing the buttons, so I can enable/disable them
 
     function setup() {
       for (var i = 1; i <= 5; i++) {
@@ -106,7 +104,7 @@
         dealCard(playerCards);
         dealCard(dealerCards);
         dealCard(playerCards);
-        dealCard(dealerCards, function () {
+        dealCard(dealerCards, function() {
           standButton.disabled = false;
           hitButton.disabled = false;
           newGameButton.disabled = true;
@@ -118,14 +116,15 @@
               endGame(false, "You both have Blackjack, but dealer wins on ties.");
             else
               endGame(false, "Dealer has Blackjack.");
-          }
-          else if (playerTotal == 21)
+          } else if (playerTotal == 21)
             endGame(true, "You have Blackjack.");
           else
             message.innerHTML = "You have " + playerTotal + ".  Hit or Stand?";
         }, true);
       }
     }
+
+
 
     function endGame(win, why) {
       if (win)
@@ -141,22 +140,24 @@
       if (dealerCards[2].faceDown) {
         dealerCards[2].cardContainer.style.display = "none";
         dealerCards[2].setFaceUp();
-        new Effect.SlideDown(dealerCards[2].cardContainer, { duration: 0.2, queue: "end" });
+        new Effect.SlideDown(dealerCards[2].cardContainer, {
+          duration: 0.2,
+          queue: "end"
+        });
       }
       new Effect.Fade(moneyDisplay, {
         duration: 0.2,
         queue: "end",
-        afterFinish: function () {
+        afterFinish: function() {
           moneyDisplay.innerHTML = "$" + money;
           new Effect.Appear(moneyDisplay, {
             duration: 0.2,
             queue: "end",
-            afterFinish: function () {
+            afterFinish: function() {
               if (money <= 0) {
                 betInput.value = "BUSTED";
                 new Effect.Shake(moneyDisplay);
-              }
-              else {
+              } else {
                 if (bet > money)
                   betInput.value = money;
                 standButton.disabled = true;
@@ -175,19 +176,18 @@
       message.innerHTML = "Dealer's turn...";
       dealerCards[2].cardContainer.style.display = "none";
       dealerCards[2].setFaceUp();
-      var takeNextCardOrFinish = function () {
+      var takeNextCardOrFinish = function() {
         new Effect.SlideDown(dealerCards[dealerCards.count].cardContainer, {
           duration: 0.2,
           queue: "end",
-          afterFinish: function () {
+          afterFinish: function() {
             var dealerTotal = getTotal(dealerCards);
             if (dealerCards.count < 5 && dealerTotal <= 16) {
               dealerCards.count++;
               dealerCards[dealerCards.count].setCard(deck.nextCard());
               dealerCards[dealerCards.count].setFaceUp();
               takeNextCardOrFinish();
-            }
-            else if (dealerTotal > 21)
+            } else if (dealerTotal > 21)
               endGame(true, "Dealer has gone over 21.");
             else if (dealerCards.count == 5)
               endGame(false, "Dealer took 5 cards without going over 21.");
@@ -211,7 +211,7 @@
         return;
       standButton.disabled = true;
       hitButton.disabled = true;
-      dealCard(playerCards, function () {
+      dealCard(playerCards, function() {
         var playerTotal = getTotal(playerCards);
         if (playerTotal > 21)
           endGame(false, "YOU WENT OVER 21!");
@@ -235,8 +235,41 @@
       dealersTurnAndEndGame();
     }
 
-    onload = setup;
+    function playAI() {
+      if (!gameInProgress) {
+        // Wait 2 seconds for game to get setup.
+        setTimeout(function() {
+          // Check if player nor dealer has 21 already.
+          if (gameInProgress) {
+            // Check to see if hit or stand, every 3 seconds.
+            setInterval(function() {
+              playerTotal = getTotal(playerCards);
+              if (playerTotal < 17) {
+                hit();
+              } else {
+                stand();
+              }
+            }, 2000);
+          }
+          else {
+            return;
+          }
+        }, 2000);
+      }
+    }
 
+    function startAI() {
+      startGame();
+      playAI();
+      setInterval(function() {
+        if (!gameInProgress) {
+          startGame();
+          playAI();
+        }
+      },4000);
+    }
+
+    onload = setup;
   </script>
 </head>
 
@@ -280,7 +313,8 @@
     <div id="betDiv" class="footer-objects">Bet</div>
     <div id="betAmt" class="footer-objects"></div>
     <input id="bet" class="input-options" type="text">
-    <button id="aiButton" value="runAi" class="footer-objects-right" disabled>Run AI</button>
+    <button type=submit id="aiButton" value="Ai" onclick="startAI()" class="footer-objects-right">Run AI</button>
+    <!--<a href="blackjackTables.html" class="footer-objects-right" style="padding-right:10px;">AI Table</a>-->
     <button id="hitButton" value="Hit" onclick="hit()" disabled>Hit</button>
     <button id="standButton" class="footer-objects-right" value="Stand" onclick="stand()" disabled>Stand</button>
     <button id="newGameButton" class="footer-objects-right" value="New Game" onClick="startGame()">New Game</button>
