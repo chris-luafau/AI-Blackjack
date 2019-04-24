@@ -1,0 +1,181 @@
+html {
+  overflow: hidden;
+}
+
+#bet {
+  font-size: 2vh;
+}
+
+button {
+  font-family: "Playfair Display SC", serif;
+  font-size: 2vh;
+  height: 3vh;
+  margin-top: 1vh;
+  width: 14vh;
+}
+
+.card-container {
+  background-color: white;
+  border: solid 4px rgb(255, 200, 50);
+  border-radius: 5%;
+  height: 30vh;
+  margin-left: 2vh;
+  margin-right: 2vh;
+  width: 22vh;
+}
+
+#dealer-container {
+  border-bottom: solid 2px rgb(255, 255, 255, 0.5);
+  height: 42vh;
+}
+
+.dealer-player-header {
+  display: flex;
+  flex-direction: column;
+  font-size: 2vh;
+  height: 4vh;
+  list-style: none;
+  text-align: center;
+}
+
+.dealer-player-list {
+  padding-top: 1vh;
+}
+
+#dice-icon {
+  color: gold;
+}
+
+#footer-container {
+  display: flex;
+  flex-direction: row;
+  font-size: 3vh;
+  border-bottom: solid 2px rgb(255, 255, 255, 0.5);
+  height: 6vh;
+  padding-top: 1vh;
+}
+
+.footer-objects-right {
+  margin-left: 2vh;
+}
+
+.footer-objects {
+  font-size: 2vh;
+  padding-right: 2vh;
+  padding-top: 1vh;
+}
+
+#header-container {
+  border-bottom: solid 2px rgb(255, 255, 255, 0.5);
+  border-top: solid 2px rgb(255, 255, 255, 0.5);
+  height: 6vh;
+}
+
+html {
+  background-color: #222222;
+  color: rgb(255, 255, 255, 0.5);
+  font-family: "Playfair Display SC", serif;
+}
+
+#hotel-icon {
+  color: #ff1534;
+}
+
+input {
+  font-family: "Playfair Display SC", serif;
+}
+
+.input-options {
+  font-size: 3vh;
+  height: 2vh;
+  margin-top: 1vh;
+  margin-right: auto;
+  width: 4vw;
+}
+
+#main-container {
+  border-bottom: solid 2px rgb(255, 255, 255, 0.5);
+  height: 84vh;
+}
+
+.main-card-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 40vh;
+  padding-top: 3vh;
+}
+
+#message {
+  font-size: 2vh;
+  margin-top: 1vh;
+}
+
+#nav-logo {
+  font-size: 4vh;
+  list-style: none;
+  text-align: center;
+  text-shadow: 0 0 5px rgb(255, 255, 255, .8);
+  -webkit-transition: all 1s;
+  -moz-transition: all 1s;
+  transition: all 1.5s;
+  -webkit-animation: neon1 1s ease-in-out infinite alternate;
+  -moz-animation: neon1 1s ease-in-out infinite alternate;
+  animation: neon1 1.5s ease-in-out infinite alternate;
+}
+
+#player-container {
+  height: 42vh;
+}
+
+#user-icon {
+  color: #1553ff;
+}
+
+.top-left-symbol {
+  font-size: 24px;
+  height: 10vh;
+  padding-left: 10px;
+  text-align: left;
+}
+
+.middle-symbol {
+  font-size: 48px;
+  height: 10vh;
+  text-align: center;
+}
+
+.bottom-right-symbol {
+  font-size: 24px;
+  height: 10vh;
+  padding-right: 10px;
+  text-align: right;
+}
+
+@-webkit-keyframes neon1 {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #ff6f00, 0 0 10px #ff6f00, 0 0 10px #ff6f00, 0 0 10px #ff6f00, 0 0 10px #ff6f00;
+  }
+  to {
+    text-shadow: 0 0 5px #fff, 0 0 5px #fff, 0 0 5px #fff, 0 0 5px #ff6f00, 0 0 5px #ff6f00, 0 0 5px #ff6f00, 0 0 5px #ff6f00, 0 0 5px #ff6f00;
+  }
+}
+
+@-moz-keyframes neon1 {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #ff6f00, 0 0 10px #ff6f00, 0 0 10px #ff6f00, 0 0 10px #ff6f00, 0 0 10px #ff6f00;
+  }
+  to {
+    text-shadow: 0 0 5px #fff, 0 0 5px #fff, 0 0 5px #fff, 0 0 5px #ff6f00, 0 0 5px #ff6f00, 0 0 5px #ff6f00, 0 0 5px #ff6f00, 0 0 5px #ff6f00;
+  }
+}
+
+@keyframes neon1 {
+  from {
+    text-shadow: 0 0 5px #fff, 0 0 5px #fff, 0 0 5px #fff, 0 0 5px #049fff, 0 0 5px #049fff, 0 0 5px #049fff, 0 0 5px #049fff, 0 0 5px #049fff;
+  }
+  to {
+    text-shadow: 0 0 5px #fff, 0 0 5px #fff, 0 0 5px #fff, 0 0 5px #FF1177, 0 0 5px #FF1177, 0 0 5px #FF1177, 0 0 5px #FF1177, 0 0 5px #FF1177;
+  }
+}
