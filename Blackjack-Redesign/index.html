@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Blackjack</title>
+  <meta charset="UTF-8" />
+  <meta name="description" content="Black UI Mockup" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css?family=Playfair+Display+SC" rel="stylesheet" />
+  <link rel="stylesheet" href="index.css" />
+</head>
+
+<body>
+  <div id="header-container">
+    <div id="nav-logo">
+      <li onclick="location.reload()"><i id="dice-icon" class="fas fa-dice"></i>&ensp;Blackjack</li>
+    </div>
+  </div>
+
+  <div id="footer-container">
+    <div id="youhave" class="footer-objects">Bank</div>
+    <div id="money" class="footer-objects">1000</div>
+    <div id="betDiv" class="footer-objects">Bet</div>
+    <div id="betAmt" class="footer-objects"></div>
+    <input id="bet" class="input-options" type="text">
+    <button id="newGameButton" class="footer-objects-right" value="New Game" onclick="start()">New Game</button>
+    <div id="message" class="footer-objects-right">Click "New Game" to start.</div>
+  </div>  
+
+  <div id="main-container">
+    <div id="dealer-container">
+      <div class="dealer-player-header">
+        <li class="dealer-player-list"><i id="hotel-icon" class="fas fa-hotel"></i>&ensp;Dealer</li>
+        <div class="main-card-container">
+          <div id="dealer1" class="card-container"></div>
+          <div id="dealer2" class="card-container"></div>
+          <div id="dealer3" class="card-container"></div>
+          <div id="dealer4" class="card-container"></div>
+          <div id="dealer5" class="card-container"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="player-container">
+      <div class="dealer-player-header">
+        <li class="dealer-player-list"><i id="user-icon" class="fas fa-user"></i>&ensp;Player</li>
+        <div class="main-card-container">
+          <div id="player1" class="card-container"></div>
+          <div id="player2" class="card-container"></div>
+          <div id="player3" class="card-container"></div>
+          <div id="player4" class="card-container"></div>
+          <div id="player5" class="card-container"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<script async src="game.js"></script>
+</html>
