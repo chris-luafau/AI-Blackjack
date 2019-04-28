@@ -343,9 +343,14 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
     return;
   }
 
+  // get face card value
+  const cardContainerList = document.querySelectorAll(".card-container");
+  const dealerFaceCardValue = cardContainerList[0].getAttribute("value");
+  let dealerAceBool = false;
+
   // just in case if missed
   if (playerSum == 21) {
-    console.log("Stand");
+    stand(playerSum, dealerSum, cardContainerList, shuffledValues, shuffledSuits, dealerAceBool, message, dealerNumberOfRounds);
     return;
   }
   
@@ -368,10 +373,6 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
     console.log("Stand");
     return;
   }
-  // get face card value
-  const cardContainerList = document.querySelectorAll(".card-container");
-  const dealerFaceCardValue = cardContainerList[0].getAttribute("value");
-  let dealerAceBool = false;
 
   // check if the first ace after hard table is there
   let hardConditionAce = numberOfAces(playerCardValue);
@@ -418,13 +419,13 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
             } else {
               if (cardSum <= 21) {
                 numberOfRounds = numberOfRounds + 1;
-                getDealerFaceCard(cardSum, cardValueList, shuffledValues, shuffledSuits, true, message, numberOfRounds);
+                getDealerFaceCard(cardSum, cardValueList, shuffledValues, shuffledSuits, true, message, numberOfRounds, dealerSum, dealerNumberOfRounds);
               }
             }
           } else {
             if (cardSum <= 21) {
               numberOfRounds = numberOfRounds + 1;
-              getDealerFaceCard(cardSum, cardValueList, shuffledValues, shuffledSuits, true, message, numberOfRounds);
+              getDealerFaceCard(cardSum, cardValueList, shuffledValues, shuffledSuits, true, message, numberOfRounds, dealerSum, dealerNumberOfRounds);
             }
           }
         }
@@ -443,7 +444,7 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
               gainBank();
               return;
             } else if (cardSum == 21) {
-              //stand(cardSum, dealerSum, cardContainerList, shuffledValues, shuffledSuits, dealerAceBool, dealerNumberOfRounds);
+              stand(cardSum, dealerSum, cardContainerList, shuffledValues, shuffledSuits, dealerAceBool, message, dealerNumberOfRounds);
               return;
             } else if (cardSum <= 21) {
               numberOfRounds = numberOfRounds + 1;
@@ -458,7 +459,7 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
         break;
       case "stand":
         console.log("Stand");
-        //stand(playerSum, dealerSum, cardContainerList, shuffledValues, shuffledSuits, dealerAceBool, dealerNumberOfRounds);
+        stand(playerSum, dealerSum, cardContainerList, shuffledValues, shuffledSuits, dealerAceBool, message, dealerNumberOfRounds);
         return;
       case "one":
       case "two":
@@ -470,12 +471,11 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
           if (numberOfCardsAway == 3 && (cardSum2 - 10) <= 21) {
             console.log("Hit");
             numberOfRounds = numberOfRounds + 1;
-            getDealerFaceCard(cardSum2, cardValueList2, shuffledValues, shuffledSuits, true, message, numberOfRounds);
-            //stand(cardSum2, dealerSum, cardContainerList, shuffledValues, shuffledSuits, dealerAceBool, dealerNumberOfRounds);
+            getDealerFaceCard(cardSum2, cardValueList2, shuffledValues, shuffledSuits, true, message, numberOfRounds, dealerSum, dealerNumberOfRounds);
             return;
           }
           if (cardSum2 == 21) {
-            //stand(cardSum2, dealerSum, cardContainerList, shuffledValues, shuffledSuits, dealerAceBool, dealerNumberOfRounds);
+            stand(cardSum2, dealerSum, cardContainerList, shuffledValues, shuffledSuits, dealerAceBool, message, dealerNumberOfRounds);
             console.log("Player got 21");
             return;
           } else if (cardSum2 <= 21) {
@@ -487,7 +487,8 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
             } else {
               if (cardSum2 <= 21) {
                 numberOfRounds = numberOfRounds + 1;
-                getDealerFaceCard(cardSum2, cardValueList2, shuffledValues, shuffledSuits, true, message, numberOfRounds);
+                getDealerFaceCard(cardSum2, cardValueList2, shuffledValues, shuffledSuits, true, message, numberOfRounds, dealerSum, dealerNumberOfRounds);
+                return;
               }
             }
             return;
@@ -502,7 +503,8 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
             } else {
               if (cardSum2 <= 21) {
                 numberOfRounds = numberOfRounds + 1;
-                getDealerFaceCard(cardSum2, cardValueList2, shuffledValues, shuffledSuits, true, message, numberOfRounds);
+                getDealerFaceCard(cardSum2, cardValueList2, shuffledValues, shuffledSuits, true, message, numberOfRounds, dealerSum, dealerNumberOfRounds);
+                return;
               }
             }
           }
@@ -521,12 +523,13 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
               gainBank();
               return;
             } else if (cardSum2 == 21) {
-              //stand(cardSum2, dealerSum, cardContainerList, shuffledValues, shuffledSuits, dealerAceBool, dealerNumberOfRounds);
+              stand(cardSum2, dealerSum, cardContainerList, shuffledValues, shuffledSuits, dealerAceBool, message, dealerNumberOfRounds);
               return;
             } else {
               if (cardSum2 <= 21) {
                 numberOfRounds = numberOfRounds + 1;
-                getDealerFaceCard(cardSum2, cardValueList2, shuffledValues, shuffledSuits, true, message, numberOfRounds);
+                getDealerFaceCard(cardSum2, cardValueList2, shuffledValues, shuffledSuits, true, message, numberOfRounds, dealerSum, dealerNumberOfRounds);
+                return;
               }
             }
             return;
@@ -567,21 +570,22 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
         } else if (cardSum3 < 21) {
           console.log("hard decision is less than 21");
           numberOfRounds = numberOfRounds + 1;
-          getDealerFaceCard(cardSum3, cardValueList3, shuffledValues, shuffledSuits, false, message, numberOfRounds);
+          getDealerFaceCard(cardSum3, cardValueList3, shuffledValues, shuffledSuits, false, message, numberOfRounds, dealerSum, dealerNumberOfRounds);
           return;
         } else if (cardSum3 == 21) {
-          // stand;
+          stand(cardSum3, dealerSum, cardContainerList, shuffledValues, shuffledSuits, dealerAceBool, message, dealerNumberOfRounds);
           return;
         }
       case "stand":
-        // dealer turn;
         console.log("stand");
+        stand(cardSum3, dealerSum, cardContainerList, shuffledValues, shuffledSuits, dealerAceBool, message, dealerNumberOfRounds);
         return;
       case "one":
       case "two":
         cardValueList3 = getCardValues(cardContainerList, 5, 10);
         if (numberOfCardsAway === 3) {
           console.log("Stand");
+          stand(cardSum3, dealerSum, cardContainerList, shuffledValues, shuffledSuits, dealerAceBool, message, dealerNumberOfRounds);
           return;
         } else if (cardValueList3.length === 5) {
           showFrontSide();
@@ -590,11 +594,16 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
           return;
         } else if (cardSum3 >= 18) {
           console.log("stand");
+          stand(cardSum3, dealerSum, cardContainerList, shuffledValues, shuffledSuits, dealerAceBool, message, dealerNumberOfRounds);
+          return;
+        } else if (cardSum3 >= 12 && cardSum3 <= 17) {
+          console.log("stand");
+          stand(cardSum3, dealerSum, cardContainerList, shuffledValues, shuffledSuits, dealerAceBool, message, dealerNumberOfRounds);
           return;
         } else {
           console.log("hard decision is less than 21");
           numberOfRounds = numberOfRounds + 1;
-          getDealerFaceCard(cardSum3, cardValueList3, shuffledValues, shuffledSuits, false, message, numberOfRounds);
+          getDealerFaceCard(cardSum3, cardValueList3, shuffledValues, shuffledSuits, false, message, numberOfRounds, dealerSum, dealerNumberOfRounds);
           return;
         }
 
@@ -864,22 +873,120 @@ function checkIfOver21(playerSum) {
   }
 }
 
-// function stand(cardSum2, dealerSum, cardContainerList, shuffledValues, shuffledSuits, dealerAceBool, dealerNumberOfRounds) {
-//   if (dealerNumberOfRounds == 4) {
-//     return;
-//   }
-//   if (dealerSum < 17) {
-//     hitDealer(shuffledValues, shuffledSuits);
-//     let dealerValueList = getCardValues(cardContainerList, 0, 5);
-//     let dealerSum = checkForBlackjack(dealerValueList);
-//     console.log(cardSum);
-//     if () {
+function stand(cardSum2, dealerSum, cardContainerList, shuffledValues, shuffledSuits, dealerAceBool, message, dealerNumberOfRounds) {
+  console.log("dealer turn");
+  console.log(dealerSum);
+  console.log(cardSum2);
+  if (dealerNumberOfRounds == 8) {
+    return;
+  }
+  
+  let dealerCardValues = getCardValues(cardContainerList, 0, 5);
+  let dealerSoftHand = playerHandContainsAce(dealerCardValues);
 
-//     }
-//   } else if (dealerSum >= 17) {
-//     // checkout for final results
-//   }
-// }
+  if (dealerCardValues.length === 5 && dealerSum <= 21) {
+    showFrontSide();
+    message.innerHTML = "Dealer got 5 cards! Player <span style='color: red'>loses</span>!";
+    deductBank();
+    return;
+  }
+
+  if (dealerSum == 17) {
+    if (dealerSum > cardSum2) {
+      showFrontSide();
+      message.innerHTML = "Dealer has a better hand! Player <span style='color: red'>loses</span>!";
+      deductBank();
+      return;
+    } else if (dealerSum < cardSum2) {
+      showFrontSide();
+      message.innerHTML = "Player has a better hand! Player <span style='color: green'>wins</span>!";
+      gainBank();
+      return;
+    } else if (dealerSum == cardSum2) {
+      showFrontSide();
+      message.innerHTML = "Dealer wins in ties! Player <span style='color: red'>loses</span>!";
+      deductBank();
+      return;
+    }
+  }
+
+  if (dealerAceBool == false && dealerSoftHand == true) {
+    if (dealerSum > 17) {
+      dealerSum = dealerSum - 10;
+      console.log(dealerSum);
+      if (dealerSum > 21) { // if card sum doesnt go under 21 then user loses
+        showFrontSide();
+        message.innerHTML = "Dealer went over 21! Player <span style='color: green'>wins</span>!";
+        gainBank();
+        return;
+      } else if (dealerSum == 17) {
+        if (dealerSum > cardSum2) {
+          showFrontSide();
+          message.innerHTML = "Dealer has a better hand! Player <span style='color: red'>loses</span>!";
+          deductBank();
+          return;
+        } else if (dealerSum == cardSum2) {
+          showFrontSide();
+          message.innerHTML = "Dealer wins in ties! Player <span style='color: red'>loses</span>!";
+          deductBank();
+          return;
+        }
+        return;
+      } else if (dealerSum < 17) {
+        hitDealer(shuffledValues, shuffledSuits);
+        dealerValueList = getCardValues(cardContainerList, 0, 5);
+        dealerSum = checkForBlackjack(dealerValueList);
+        console.log(dealerSum);
+        dealerNumberOfRounds = dealerNumberOfRounds + 1;
+        stand(cardSum2, dealerSum, cardContainerList, shuffledValues, shuffledSuits, true, message, dealerNumberOfRounds);
+      }
+    } else if (dealerSum < 17) {
+      hitDealer(shuffledValues, shuffledSuits);
+      dealerValueList = getCardValues(cardContainerList, 0, 5);
+      dealerSum = checkForBlackjack(dealerValueList);
+      console.log(dealerSum);
+      dealerNumberOfRounds = dealerNumberOfRounds + 1;
+      stand(cardSum2, dealerSum, cardContainerList, shuffledValues, shuffledSuits, true, message, dealerNumberOfRounds);
+    }
+  } else {
+    if (dealerSum >= 17) {
+      if (dealerSum > 21) { // if card sum doesnt go under 21 then user loses
+        showFrontSide();
+        message.innerHTML = "Dealer went over 21! Player <span style='color: green'>wins</span>!";
+        gainBank();
+        return;
+      } else {
+        if (dealerSum <= 21) {
+          if (dealerSum > cardSum2) {
+            showFrontSide();
+            message.innerHTML = "Dealer has a better hand! Player <span style='color: red'>loses</span>!";
+            deductBank();
+            return;
+          } else if (dealerSum == cardSum2) {
+            showFrontSide();
+            message.innerHTML = "Dealer wins in ties! Player <span style='color: red'>loses</span>!";
+            deductBank();
+            return;
+          } else if (dealerSum < cardSum2) {
+            showFrontSide();
+            message.innerHTML = "Player has a better hand! Player <span style='color: green'>wins</span>!";
+            gainBank();
+            return;
+          }
+          return;
+        }
+      }
+    } else if (dealerSum < 17) {
+      hitDealer(shuffledValues, shuffledSuits);
+      dealerValueList = getCardValues(cardContainerList, 0, 5);
+      dealerSum = checkForBlackjack(dealerValueList);
+      console.log(dealerSum);
+      dealerNumberOfRounds = dealerNumberOfRounds + 1;
+      stand(cardSum2, dealerSum, cardContainerList, shuffledValues, shuffledSuits, true, message, dealerNumberOfRounds);
+      return;
+    }
+  }
+} 
 
 function hitDealer(newDeckValues, newDeckSuits) {
   const dealerCard3 = document.querySelector("#dealer3");
