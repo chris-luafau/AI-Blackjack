@@ -338,13 +338,11 @@ function playerTurn(playerSum, playerCardValue, shuffledValues, shuffledSuits, a
 }
 
 function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledSuits, aceBool, message, numberOfRounds, dealerSum, dealerNumberOfRounds) {
-  if (playerSum <= 21 && playerCardValue.length === 5) {
-    showFrontSide();
-    message.innerHTML = "Player got 5 cards! Player <span style='color: green'>wins</span>!";
-    gainBank();
+  // base case to prevent infinite loop
+  if (numberOfRounds == 5) {
     return;
   }
-  
+
   // just in case if missed
   if (playerSum == 21) {
     console.log("Stand");
@@ -352,7 +350,17 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
   }
   
   console.log(numberOfRounds);
-  if (numberOfRounds == 4) {
+  if (numberOfRounds == 4 && playerSum > 21) {
+    showFrontSide();
+    message.innerHTML = "Player <span style='color: red'>loses</span>!";
+    deductBank();
+    return;
+  }
+
+  if (numberOfRounds == 4 && playerSum <= 21 && playerCardValue.length === 5) {
+    showFrontSide();
+    message.innerHTML = "Player got 5 cards! Player <span style='color: green'>wins</span>!";
+    gainBank();
     return;
   }
   // just in case if missed
@@ -364,6 +372,13 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
   const cardContainerList = document.querySelectorAll(".card-container");
   const dealerFaceCardValue = cardContainerList[0].getAttribute("value");
   let dealerAceBool = false;
+
+  // check if the first ace after hard table is there
+  let hardConditionAce = numberOfAces(playerCardValue);
+
+  if (playerSum >= 11 && hardConditionAce == true) {
+    aceBool = true;
+  }
 
 
   // if playerHandContainsAce returns true then the player has a soft hand
@@ -422,7 +437,7 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
             deductBank();
             return;
           } else {
-            if (cardValueList.length == 5) {
+            if (cardValueList.length == 5 && cardSum <= 21) {
               showFrontSide();
               message.innerHTML = "Player got 5 cards! Player <span style='color: green'>wins</span>!";
               gainBank();
@@ -448,7 +463,7 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
       case "one":
       case "two":
         hit(shuffledValues, shuffledSuits);
-        let cardValueList2 = getCardValues(cardContainerList, 5, 9);
+        let cardValueList2 = getCardValues(cardContainerList, 5, 10);
         let cardSum2 = checkForBlackjack(cardValueList2);
         console.log(cardSum2);
         if (aceBool == false) {
@@ -572,6 +587,9 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
           showFrontSide();
           message.innerHTML = "Player got 5 cards! Player <span style='color: green'>wins</span>!";
           gainBank();
+          return;
+        } else if (cardSum3 >= 18) {
+          console.log("stand");
           return;
         } else {
           console.log("hard decision is less than 21");
@@ -806,10 +824,25 @@ function hit(newDeckValues, newDeckSuits) {
 }
 
 function playerHandContainsAce(playerCardValue) {
-  let numberOfAces = 0;
   for (let i = 0; i < playerCardValue.length; i++) {
     if (playerCardValue[i] === "A") {
       return true;
+    } else {
+      continue;
+    }
+  }
+
+  return false;
+}
+
+function numberOfAces(playerCardValue) {
+  let numberOfAces = 0;
+  for (let i = 0; i < playerCardValue.length; i++) {
+    if (playerCardValue[i] === "A") {
+      numberOfAces = numberOfAces + 1;
+      if (i == 2 && numberOfAces) {
+        return true;
+      }
     } else {
       continue;
     }
