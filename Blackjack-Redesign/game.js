@@ -427,11 +427,16 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
         console.log("Stand");
         return;
       case "one":
+      case "two":
         hit(shuffledValues, shuffledSuits);
         let cardValueList2 = getCardValues(cardContainerList, 5, 9);
         let cardSum2 = checkForBlackjack(cardValueList2);
         console.log(cardSum2);
         if (aceBool == false) {
+          if (numberOfCardsAway >= 3) {
+            //stand;
+            return;
+          }
           if (cardSum2 == 21) {
             //stand;
             console.log("Player got 21");
@@ -486,11 +491,6 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
             return;
           }
         }
-        console.log("One");
-        return;
-      case "two":
-        console.log("Two");
-        return;
       default:
         return;
     }
