@@ -338,6 +338,19 @@ function playerTurn(playerSum, playerCardValue, shuffledValues, shuffledSuits, a
 }
 
 function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledSuits, aceBool, message, numberOfRounds, dealerSum, dealerNumberOfRounds) {
+  if (playerSum <= 21 && playerCardValue.length === 5) {
+    showFrontSide();
+    message.innerHTML = "Player got 5 cards! Player <span style='color: green'>wins</span>!";
+    gainBank();
+    return;
+  }
+  
+  // just in case if missed
+  if (playerSum == 21) {
+    console.log("Stand");
+    return;
+  }
+  
   console.log(numberOfRounds);
   if (numberOfRounds == 4) {
     return;
@@ -523,11 +536,13 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
     let numberOfCardsAway = determineHowManyCardsAwayFromCharlie(cardContainerList);
     console.log(numberOfCardsAway);
 
+    let cardValueList3 = getCardValues(cardContainerList, 5, 10);
+    let cardSum3 = checkForBlackjack(cardValueList3);
     switch (hardDecision) {
       case "hit":
         hit(shuffledValues, shuffledSuits);
-        let cardValueList3 = getCardValues(cardContainerList, 5, 10);
-        let cardSum3 = checkForBlackjack(cardValueList3);
+        cardValueList3 = getCardValues(cardContainerList, 5, 10);
+        cardSum3 = checkForBlackjack(cardValueList3);
         console.log(cardSum3);
         if (cardSum3 > 21) {
           showFrontSide();
@@ -545,10 +560,25 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
         }
       case "stand":
         // dealer turn;
+        console.log("stand");
         return;
       case "one":
       case "two":
-        //same thing
+        cardValueList3 = getCardValues(cardContainerList, 5, 10);
+        if (numberOfCardsAway === 3) {
+          console.log("Stand");
+          return;
+        } else if (cardValueList3.length === 5) {
+          showFrontSide();
+          message.innerHTML = "Player got 5 cards! Player <span style='color: green'>wins</span>!";
+          gainBank();
+          return;
+        } else {
+          console.log("hard decision is less than 21");
+          numberOfRounds = numberOfRounds + 1;
+          getDealerFaceCard(cardSum3, cardValueList3, shuffledValues, shuffledSuits, false, message, numberOfRounds);
+          return;
+        }
 
     }
 
