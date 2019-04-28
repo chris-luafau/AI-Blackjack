@@ -427,64 +427,67 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
         console.log("Stand");
         return;
       case "one":
-        // hit(shuffledValues, shuffledSuits);
-        // let cardValueList2 = getCardValues(cardContainerList, 5, 9);
-        // let cardSum2 = checkForBlackjack(cardValueList2);
-        // console.log(cardSum2);
-        // if (aceBool == false) {
-        //   if (cardSum2 == 21) {
-        //     //stand;
-        //     console.log("Player got 21");
-        //     return;
-        //   } else if (cardSum2 <= 21) {
-        //     if (cardValueList2.length == 5) {
-        //       message.innerHTML = "Player got 5 cards! Player <span style='color: red'>wins</span>!";
-        //       gainBank();
-        //       return;
-        //     } else {
-        //       if (cardSum2 <= 21) {
-        //         getDealerFaceCard(cardSum2, cardValueList2, shuffledValues, shuffledSuits, true, message);
-        //       }
-        //     }
-        //     return;
-        //   } else if (cardSum2 > 21) {
-        //     cardSum2 = cardSum2 - 10;
-        //     console.log(cardSum2);
-        //     if (cardSum2 > 21) { // if card sum doesnt go under 21 then user loses
-        //       message.innerHTML = "Player went over 21! Player <span style='color: red'>loses</span>!";
-        //       deductBank();
-        //       return;
-        //     } else {
-        //       if (cardSum2 <= 21) {
-        //         getDealerFaceCard(cardSum2, cardValueList2, shuffledValues, shuffledSuits, true, message);
-        //       }
-        //     }
-        //   }
-        // } else {
-        //   cardSum2 = cardSum2 - 10;
-        //   console.log(cardSum2);
-        //   if (cardSum2 > 21) {
-        //     message.innerHTML = "Player went over 21! Player <span style='color: red'>loses</span>!";
-        //     deductBank();
-        //     return;
-        //   } else {
-        //     if (cardValueList2.length == 5) {
-        //       message.innerHTML = "Player got 5 cards! Player <span style='color: red'>wins</span>!";
-        //       gainBank();
-        //       return;
-        //     } else if (cardSum2 == 21) {
-        //       //stand;
-        //       return;
-        //     } else {
-        //       if (cardSum2 <= 21) {
-        //         getDealerFaceCard(cardSum2, cardValueList2, shuffledValues, shuffledSuits, true, message);
-        //       }
-        //     }
-        //     return;
-        //   }
-        // }
-        // console.log("One");
-        // return;
+        hit(shuffledValues, shuffledSuits);
+        let cardValueList2 = getCardValues(cardContainerList, 5, 9);
+        let cardSum2 = checkForBlackjack(cardValueList2);
+        console.log(cardSum2);
+        if (aceBool == false) {
+          if (cardSum2 == 21) {
+            //stand;
+            console.log("Player got 21");
+            return;
+          } else if (cardSum2 <= 21) {
+            if (cardValueList2.length == 5) {
+              message.innerHTML = "Player got 5 cards! Player <span style='color: green'>wins</span>!";
+              gainBank();
+              return;
+            } else {
+              if (cardSum2 <= 21) {
+                numberOfRounds = numberOfRounds + 1;
+                getDealerFaceCard(cardSum2, cardValueList2, shuffledValues, shuffledSuits, true, message, numberOfRounds);
+              }
+            }
+            return;
+          } else if (cardSum2 > 21) {
+            cardSum2 = cardSum2 - 10;
+            console.log(cardSum2);
+            if (cardSum2 > 21) { // if card sum doesnt go under 21 then user loses
+              message.innerHTML = "Player went over 21! Player <span style='color: red'>loses</span>!";
+              deductBank();
+              return;
+            } else {
+              if (cardSum2 <= 21) {
+                numberOfRounds = numberOfRounds + 1;
+                getDealerFaceCard(cardSum2, cardValueList2, shuffledValues, shuffledSuits, true, message, numberOfRounds);
+              }
+            }
+          }
+        } else {
+          cardSum2 = cardSum2 - 10;
+          console.log(cardSum2);
+          if (cardSum2 > 21) {
+            message.innerHTML = "Player went over 21! Player <span style='color: red'>loses</span>!";
+            deductBank();
+            return;
+          } else {
+            if (cardValueList2.length == 5) {
+              message.innerHTML = "Player got 5 cards! Player <span style='color: green'>wins</span>!";
+              gainBank();
+              return;
+            } else if (cardSum2 == 21) {
+              //stand;
+              return;
+            } else {
+              if (cardSum2 <= 21) {
+                numberOfRounds = numberOfRounds + 1;
+                getDealerFaceCard(cardSum2, cardValueList2, shuffledValues, shuffledSuits, true, message, numberOfRounds);
+              }
+            }
+            return;
+          }
+        }
+        console.log("One");
+        return;
       case "two":
         console.log("Two");
         return;
