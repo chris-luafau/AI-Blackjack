@@ -1,141 +1,183 @@
-#availableCash {
-  margin: 1% 0;
-  font-size: 1.2vw;
+html {
+  overflow: hidden;
 }
-  
-#betCash {
-  font-size: 1.2vw;
-  margin: 1% 42%;
+
+#bet {
+  font-size: 2vh;
 }
-  
+
 button {
-  opacity: .8;
+  font-family: "Playfair Display SC", serif;
+  font-size: 2vh;
+  height: 3vh;
+  margin-top: 1vh;
+  width: 14vh;
 }
-  
-button:hover {
-  opacity: 1;
+
+.card-container {
+  background-color: white;
+  border: solid 4px rgb(255, 200, 50);
+  border-radius: 5%;
+  height: 30vh;
+  margin-left: 2vh;
+  margin-right: 2vh;
+  width: 22vh;
 }
-  
-.cardPlacement {
-  border: solid 2px white;
-  height: 75%;
-  margin: 1% .3%;
-  width: 9%;
+
+#dealer-container {
+  border-bottom: solid 2px rgb(255, 255, 255, 0.5);
+  height: 42vh;
 }
-  
-.cards {
-  border-top: solid 2px white;
-}
-  
-.cardtable {
-  border-bottom: solid 2px white !important;
+
+.dealer-player-header {
   display: flex;
   flex-direction: column;
-  font-size: 1.2vw;
-  height: 43.5%;
-}
-  
-.cash {
-  display: flex;
-  flex-direction: row;
-}
-  
-#deal {
-  color: white;
-  background-color: green;
-  border: solid 2px white;
-  font-family: 'Playfair Display SC', serif;
-  font-size: 1.2vw;
-  margin-top: 1%;
-  margin-bottom: 1%;
-  margin-left: auto;
-}
-  
-#dealersCards {
-  align-items: center; 
-  display: flex; 
-  justify-content: center
-}
-  
-.dealerPlayer {
+  font-size: 2vh;
+  height: 4vh;
+  list-style: none;
   text-align: center;
 }
-  
-#dice {
+
+.dealer-player-list {
+  padding-top: 1vh;
+}
+
+#dice-icon {
   color: gold;
 }
-  
+
+#footer-container {
+  display: flex;
+  flex-direction: row;
+  font-size: 3vh;
+  border-bottom: solid 2px rgb(255, 255, 255, 0.5);
+  height: 6vh;
+  padding-top: 1vh;
+}
+
+.footer-objects-right {
+  margin-left: 2vh;
+}
+
+.footer-objects {
+  font-size: 2vh;
+  padding-right: 2vh;
+  padding-top: 1vh;
+}
+
+#header-container {
+  border-bottom: solid 2px rgb(255, 255, 255, 0.5);
+  border-top: solid 2px rgb(255, 255, 255, 0.5);
+  height: 6vh;
+}
+
 html {
-  color: white;
-  border: solid 2px white;
-  background-color: #222;
-  font-family: 'Playfair Display SC', serif;
+  background-color: #222222;
+  color: rgb(255, 255, 255, 0.5);
+  font-family: "Playfair Display SC", serif;
 }
-  
+
+#hotel-icon {
+  color: #ff1534;
+}
+
 input {
-  font-family: 'Playfair Display SC', serif;
-  font-size: 1.2vw;
-  margin: 1% 0;
+  font-family: "Playfair Display SC", serif;
 }
-  
-label {
-  font-size: 1.2vw;
-  margin: 1% 0;
+
+.input-options {
+  font-size: 3vh;
+  height: 2vh;
+  margin-top: 1vh;
+  margin-right: auto;
+  width: 4vw;
 }
-  
-#landmark {
-  color: #ff3033;
+
+#main-container {
+  border-bottom: solid 2px rgb(255, 255, 255, 0.5);
+  height: 84vh;
 }
-  
-li {
+
+.main-card-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 40vh;
+  padding-top: 3vh;
+}
+
+#message {
+  font-size: 2vh;
+  margin-top: 1vh;
+  width: 22%;
+  text-align: right;
+}
+
+#nav-logo {
+  font-size: 4vh;
   list-style: none;
+  text-align: center;
+  text-shadow: 0 0 5px rgb(255, 255, 255, .8);
+  -webkit-transition: all 1s;
+  -moz-transition: all 1s;
+  transition: all 1.5s;
+  -webkit-animation: neon1 1s ease-in-out infinite alternate;
+  -moz-animation: neon1 1s ease-in-out infinite alternate;
+  animation: neon1 1.5s ease-in-out infinite alternate;
 }
-  
-.nav {
-  font-size: 1.4vw;
-  margin: .5% 0;
+
+#player-container {
+  height: 42vh;
+}
+
+#user-icon {
+  color: #1553ff;
+}
+
+.top-left-symbol {
+  font-size: 24px;
+  height: 10vh;
+  padding-left: 10px;
+  text-align: left;
+}
+
+.middle-symbol {
+  font-size: 48px;
+  height: 10vh;
   text-align: center;
 }
-  
-#player {
-  color: #2659ff;
-}
-  
-#playerCards {
-  align-items: center; 
-  display: flex; 
-  justify-content: center
-}
-  
-#money {
-  font-size: 1.2vw;
-  margin: 0 1%;
+
+.bottom-right-symbol {
+  font-size: 24px;
+  height: 10vh;
+  padding-right: 10px;
+  text-align: right;
 }
 
-#betdiv {
-  font-size: 1.2vw;
-  margin: 0 1%;
+@-webkit-keyframes neon1 {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #ff6f00, 0 0 10px #ff6f00, 0 0 10px #ff6f00, 0 0 10px #ff6f00, 0 0 10px #ff6f00;
+  }
+  to {
+    text-shadow: 0 0 5px #fff, 0 0 5px #fff, 0 0 5px #fff, 0 0 5px #ff6f00, 0 0 5px #ff6f00, 0 0 5px #ff6f00, 0 0 5px #ff6f00, 0 0 5px #ff6f00;
+  }
 }
 
-#youhave {
-  font-size: 1.2vw;
-  margin: 0 1%;
+@-moz-keyframes neon1 {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #ff6f00, 0 0 10px #ff6f00, 0 0 10px #ff6f00, 0 0 10px #ff6f00, 0 0 10px #ff6f00;
+  }
+  to {
+    text-shadow: 0 0 5px #fff, 0 0 5px #fff, 0 0 5px #fff, 0 0 5px #ff6f00, 0 0 5px #ff6f00, 0 0 5px #ff6f00, 0 0 5px #ff6f00, 0 0 5px #ff6f00;
+  }
 }
 
-#betAmt {
-  font-size: 1.2vw;
-  margin: 0 1%;  
-}
-
-.footerBtn {
-  font-size: 1.2vw;
-  margin: 0 1%;  
-}
-
-#hitBtn {
-  font-size: 1.2vw;
-  margin-left: auto;
-  margin-right: 1%;
-  margin-top: 0;
-  margin-bottom: 0;
+@keyframes neon1 {
+  from {
+    text-shadow: 0 0 5px #fff, 0 0 5px #fff, 0 0 5px #fff, 0 0 5px #049fff, 0 0 5px #049fff, 0 0 5px #049fff, 0 0 5px #049fff, 0 0 5px #049fff;
+  }
+  to {
+    text-shadow: 0 0 5px #fff, 0 0 5px #fff, 0 0 5px #fff, 0 0 5px #FF1177, 0 0 5px #FF1177, 0 0 5px #FF1177, 0 0 5px #FF1177, 0 0 5px #FF1177;
+  }
 }
