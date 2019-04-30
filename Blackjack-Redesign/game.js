@@ -1,5 +1,27 @@
+function loop() {
+  // track number of wins and losses
+  let win = 0;
+  let losses = 0;
+
+  for (let i = 0; i < 10000; i++) {
+    start();
+    let money = parseInt(document.querySelector("#money").innerHTML);
+    if (money > 1000) {
+      win = win + 1;
+    } else if (money < 1000) {
+      losses = losses + 1;
+    } else {
+      losses = losses + 1;
+    }
+  }
+
+  console.log(win);
+  console.log(losses);
+}
+
 function start() {
   document.querySelector("#bet").value = "25";
+  document.querySelector("#money").innerHTML = "1000";
   const message = document.querySelector("#message");
   message.innerHTML = "No automatic win on the initial play";
 
@@ -31,11 +53,15 @@ function start() {
 
   const win = winConditionCheck(dealerSum, playerSum);
   if (win == true) {
-    return;
+    console.log("win");
+    return "win";
   } else if (win == false) {
-    return;
+    console.log("lose");
+    return "lose";
   } else {
-    playerTurn(playerSum, playerCardValue, shuffledValues, shuffledSuits, false, message, numberOfRounds, dealerSum, dealerNumberOfRounds);
+    let a = playerTurn(playerSum, playerCardValue, shuffledValues, shuffledSuits, false, message, numberOfRounds, dealerSum, dealerNumberOfRounds);
+    console.log(a);
+    return a;
   }
 }
 
@@ -359,14 +385,14 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
     showFrontSide();
     message.innerHTML = "Player <span style='color: red'>loses</span>!";
     deductBank();
-    return;
+    return "lose";
   }
 
   if (numberOfRounds == 4 && playerSum <= 21 && playerCardValue.length === 5) {
     showFrontSide();
     message.innerHTML = "Player got 5 cards! Player <span style='color: green'>wins</span>!";
     gainBank();
-    return;
+    return "win";
   }
   // just in case if missed
   if (playerSum == 21) {
@@ -436,13 +462,13 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
             showFrontSide();
             message.innerHTML = "Player went over 21! Player <span style='color: red'>loses</span>!";
             deductBank();
-            return;
+            return "lose";
           } else {
             if (cardValueList.length == 5 && cardSum <= 21) {
               showFrontSide();
               message.innerHTML = "Player got 5 cards! Player <span style='color: green'>wins</span>!";
               gainBank();
-              return;
+              return "win";
             } else if (cardSum == 21) {
               stand(cardSum, dealerSum, cardContainerList, shuffledValues, shuffledSuits, dealerAceBool, message, dealerNumberOfRounds);
               return;
@@ -483,7 +509,7 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
               showFrontSide();
               message.innerHTML = "Player got 5 cards! Player <span style='color: green'>wins</span>!";
               gainBank();
-              return;
+              return "win";
             } else {
               if (cardSum2 <= 21) {
                 numberOfRounds = numberOfRounds + 1;
@@ -499,7 +525,7 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
               showFrontSide();
               message.innerHTML = "Player went over 21! Player <span style='color: red'>loses</span>!";
               deductBank();
-              return;
+              return "lose";
             } else {
               if (cardSum2 <= 21) {
                 numberOfRounds = numberOfRounds + 1;
@@ -515,13 +541,13 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
             showFrontSide();
             message.innerHTML = "Player went over 21! Player <span style='color: red'>loses</span>!";
             deductBank();
-            return;
+            return "lose";
           } else {
             if (cardValueList2.length == 5) {
               showFrontSide();
               message.innerHTML = "Player got 5 cards! Player <span style='color: green'>wins</span>!";
               gainBank();
-              return;
+              return "win";
             } else if (cardSum2 == 21) {
               stand(cardSum2, dealerSum, cardContainerList, shuffledValues, shuffledSuits, dealerAceBool, message, dealerNumberOfRounds);
               return;
@@ -566,7 +592,7 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
           showFrontSide();
           message.innerHTML = "Player went over 21! Player <span style='color: red'>loses</span>!";
           deductBank();
-          return;
+          return "lose";
         } else if (cardSum3 < 21) {
           console.log("hard decision is less than 21");
           numberOfRounds = numberOfRounds + 1;
@@ -591,7 +617,7 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
           showFrontSide();
           message.innerHTML = "Player got 5 cards! Player <span style='color: green'>wins</span>!";
           gainBank();
-          return;
+          return "win";
         } else if (cardSum3 >= 18) {
           console.log("stand");
           stand(cardSum3, dealerSum, cardContainerList, shuffledValues, shuffledSuits, dealerAceBool, message, dealerNumberOfRounds);
@@ -888,7 +914,7 @@ function stand(cardSum2, dealerSum, cardContainerList, shuffledValues, shuffledS
     showFrontSide();
     message.innerHTML = "Dealer got 5 cards! Player <span style='color: red'>loses</span>!";
     deductBank();
-    return;
+    return "lose";
   }
 
   if (dealerSum == 17) {
@@ -896,17 +922,17 @@ function stand(cardSum2, dealerSum, cardContainerList, shuffledValues, shuffledS
       showFrontSide();
       message.innerHTML = "Dealer has a better hand! Player <span style='color: red'>loses</span>!";
       deductBank();
-      return;
+      return "lose";
     } else if (dealerSum < cardSum2) {
       showFrontSide();
       message.innerHTML = "Player has a better hand! Player <span style='color: green'>wins</span>!";
       gainBank();
-      return;
+      return "win";
     } else if (dealerSum == cardSum2) {
       showFrontSide();
       message.innerHTML = "Dealer wins in ties! Player <span style='color: red'>loses</span>!";
       deductBank();
-      return;
+      return "lose";
     }
   }
 
@@ -918,18 +944,18 @@ function stand(cardSum2, dealerSum, cardContainerList, shuffledValues, shuffledS
         showFrontSide();
         message.innerHTML = "Dealer went over 21! Player <span style='color: green'>wins</span>!";
         gainBank();
-        return;
+        return "win";
       } else if (dealerSum == 17) {
         if (dealerSum > cardSum2) {
           showFrontSide();
           message.innerHTML = "Dealer has a better hand! Player <span style='color: red'>loses</span>!";
           deductBank();
-          return;
+          return "lose";
         } else if (dealerSum == cardSum2) {
           showFrontSide();
           message.innerHTML = "Dealer wins in ties! Player <span style='color: red'>loses</span>!";
           deductBank();
-          return;
+          return "lose";
         }
         return;
       } else if (dealerSum < 17) {
@@ -954,24 +980,24 @@ function stand(cardSum2, dealerSum, cardContainerList, shuffledValues, shuffledS
         showFrontSide();
         message.innerHTML = "Dealer went over 21! Player <span style='color: green'>wins</span>!";
         gainBank();
-        return;
+        return "win";
       } else {
         if (dealerSum <= 21) {
           if (dealerSum > cardSum2) {
             showFrontSide();
             message.innerHTML = "Dealer has a better hand! Player <span style='color: red'>loses</span>!";
             deductBank();
-            return;
+            return "lose";
           } else if (dealerSum == cardSum2) {
             showFrontSide();
             message.innerHTML = "Dealer wins in ties! Player <span style='color: red'>loses</span>!";
             deductBank();
-            return;
+            return "lose";
           } else if (dealerSum < cardSum2) {
             showFrontSide();
             message.innerHTML = "Player has a better hand! Player <span style='color: green'>wins</span>!";
             gainBank();
-            return;
+            return "win";
           }
           return;
         }
