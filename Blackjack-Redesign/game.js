@@ -2,6 +2,7 @@ function loop() {
   // track number of wins and losses
   let win = 0;
   let losses = 0;
+  let ties = 0;
 
   for (let i = 0; i < 10000; i++) {
     start();
@@ -10,13 +11,14 @@ function loop() {
       win = win + 1;
     } else if (money < 1000) {
       losses = losses + 1;
-    } else {
-      losses = losses + 1;
+    } else if (money == 1000) {
+      ties = ties + 1;
     }
   }
 
-  console.log(win);
-  console.log(losses);
+  console.log("Wins: " + win);
+  console.log("Losses: " + losses);
+  console.log("Ties: " + ties);
 }
 
 function start() {
@@ -53,14 +55,11 @@ function start() {
 
   const win = winConditionCheck(dealerSum, playerSum);
   if (win == true) {
-    console.log("win");
     return "win";
   } else if (win == false) {
-    console.log("lose");
     return "lose";
   } else {
     let a = playerTurn(playerSum, playerCardValue, shuffledValues, shuffledSuits, false, message, numberOfRounds, dealerSum, dealerNumberOfRounds);
-    console.log(a);
     return a;
   }
 }
@@ -243,7 +242,6 @@ function getCardValues(cardContainers,startIndex, endIndex) {
     }
   }
 
-  console.log(cardValueList);
   return cardValueList;
 }
 
@@ -273,7 +271,6 @@ function checkForBlackjack(cardValueList) {
       sum = sum + cardValue;
   }
 
-  console.log(sum);
   return sum;
 }
 
@@ -359,7 +356,6 @@ function createDealerCard(cardContainer, cardValue) {
 // determine coordinates to retrieve value from table
 // if player hasn't lost by the end of their turn, then dealer gets to start
 function playerTurn(playerSum, playerCardValue, shuffledValues, shuffledSuits, aceBool, message, numberOfRounds, dealerSum, dealerNumberOfRounds) {
-  console.log(playerSum);
   getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledSuits, aceBool, message, numberOfRounds, dealerSum);
 }
 
@@ -380,7 +376,6 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
     return;
   }
   
-  console.log(numberOfRounds);
   if (numberOfRounds == 4 && playerSum > 21) {
     showFrontSide();
     message.innerHTML = "Player <span style='color: red'>loses</span>!";
@@ -396,7 +391,6 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
   }
   // just in case if missed
   if (playerSum == 21) {
-    console.log("Stand");
     return;
   }
 
@@ -417,26 +411,21 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
     let softTableYIndex = determineSoftTableYIndex(dealerFaceCardValue);
 
     if (softTableXIndex === false || softTableYIndex === false) {
-      console.log("Not valid index");
       return;
     }
 
     let softDecision = determineSoftDecision(softTableXIndex, softTableYIndex);
-    console.log(softDecision);
 
     let numberOfCardsAway = determineHowManyCardsAwayFromCharlie(cardContainerList);
-    console.log(numberOfCardsAway);
 
     switch (softDecision) {
       case "hit":
         hit(shuffledValues, shuffledSuits);
         let cardValueList = getCardValues(cardContainerList, 5, 10);
         let cardSum = checkForBlackjack(cardValueList);
-        console.log(cardSum);
         if (aceBool == false) { // if 10 hasnt been taken off already
           if (cardSum > 21) {
             cardSum = cardSum - 10;
-            console.log(cardSum);
             if (cardSum > 21) { // if card sum doesnt go under 21 then user loses
               showFrontSide();
               message.innerHTML = "Player <span style='color: red'>loses</span>!";
@@ -457,7 +446,6 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
         }
         if (aceBool == true) {
           cardSum = cardSum - 10;
-          console.log(cardSum);
           if (cardSum > 21) {
             showFrontSide();
             message.innerHTML = "Player went over 21! Player <span style='color: red'>loses</span>!";
@@ -484,7 +472,6 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
         // then check again if sum is greater than 21 
         break;
       case "stand":
-        console.log("Stand");
         stand(playerSum, dealerSum, cardContainerList, shuffledValues, shuffledSuits, dealerAceBool, message, dealerNumberOfRounds);
         return;
       case "one":
@@ -492,17 +479,14 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
         hit(shuffledValues, shuffledSuits);
         let cardValueList2 = getCardValues(cardContainerList, 5, 10);
         let cardSum2 = checkForBlackjack(cardValueList2);
-        console.log(cardSum2);
         if (aceBool == false) {
           if (numberOfCardsAway == 3 && (cardSum2 - 10) <= 21) {
-            console.log("Hit");
             numberOfRounds = numberOfRounds + 1;
             getDealerFaceCard(cardSum2, cardValueList2, shuffledValues, shuffledSuits, true, message, numberOfRounds, dealerSum, dealerNumberOfRounds);
             return;
           }
           if (cardSum2 == 21) {
             stand(cardSum2, dealerSum, cardContainerList, shuffledValues, shuffledSuits, dealerAceBool, message, dealerNumberOfRounds);
-            console.log("Player got 21");
             return;
           } else if (cardSum2 <= 21) {
             if (cardValueList2.length == 5) {
@@ -520,7 +504,6 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
             return;
           } else if (cardSum2 > 21) {
             cardSum2 = cardSum2 - 10;
-            console.log(cardSum2);
             if (cardSum2 > 21) { // if card sum doesnt go under 21 then user loses
               showFrontSide();
               message.innerHTML = "Player went over 21! Player <span style='color: red'>loses</span>!";
@@ -536,7 +519,6 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
           }
         } else {
           cardSum2 = cardSum2 - 10;
-          console.log(cardSum2);
           if (cardSum2 > 21) {
             showFrontSide();
             message.innerHTML = "Player went over 21! Player <span style='color: red'>loses</span>!";
@@ -570,15 +552,12 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
     let hardTableYIndex = determineHardTableYIndex(dealerFaceCardValue);
     
     if (hardTableXIndex === false || hardTableYIndex === false) {
-      console.log("Not valid index");
       return;
     }
 
     let hardDecision = determineHardDecision(hardTableXIndex, hardTableYIndex);
-    console.log(hardDecision);
 
     let numberOfCardsAway = determineHowManyCardsAwayFromCharlie(cardContainerList);
-    console.log(numberOfCardsAway);
 
     let cardValueList3 = getCardValues(cardContainerList, 5, 10);
     let cardSum3 = checkForBlackjack(cardValueList3);
@@ -587,14 +566,12 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
         hit(shuffledValues, shuffledSuits);
         cardValueList3 = getCardValues(cardContainerList, 5, 10);
         cardSum3 = checkForBlackjack(cardValueList3);
-        console.log(cardSum3);
         if (cardSum3 > 21) {
           showFrontSide();
           message.innerHTML = "Player went over 21! Player <span style='color: red'>loses</span>!";
           deductBank();
           return "lose";
         } else if (cardSum3 < 21) {
-          console.log("hard decision is less than 21");
           numberOfRounds = numberOfRounds + 1;
           getDealerFaceCard(cardSum3, cardValueList3, shuffledValues, shuffledSuits, false, message, numberOfRounds, dealerSum, dealerNumberOfRounds);
           return;
@@ -603,14 +580,12 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
           return;
         }
       case "stand":
-        console.log("stand");
         stand(cardSum3, dealerSum, cardContainerList, shuffledValues, shuffledSuits, dealerAceBool, message, dealerNumberOfRounds);
         return;
       case "one":
       case "two":
         cardValueList3 = getCardValues(cardContainerList, 5, 10);
         if (numberOfCardsAway === 3) {
-          console.log("Stand");
           stand(cardSum3, dealerSum, cardContainerList, shuffledValues, shuffledSuits, dealerAceBool, message, dealerNumberOfRounds);
           return;
         } else if (cardValueList3.length === 5) {
@@ -619,15 +594,12 @@ function getDealerFaceCard(playerSum, playerCardValue, shuffledValues, shuffledS
           gainBank();
           return "win";
         } else if (cardSum3 >= 18) {
-          console.log("stand");
           stand(cardSum3, dealerSum, cardContainerList, shuffledValues, shuffledSuits, dealerAceBool, message, dealerNumberOfRounds);
           return;
         } else if (cardSum3 >= 12 && cardSum3 <= 17) {
-          console.log("stand");
           stand(cardSum3, dealerSum, cardContainerList, shuffledValues, shuffledSuits, dealerAceBool, message, dealerNumberOfRounds);
           return;
         } else {
-          console.log("hard decision is less than 21");
           numberOfRounds = numberOfRounds + 1;
           getDealerFaceCard(cardSum3, cardValueList3, shuffledValues, shuffledSuits, false, message, numberOfRounds, dealerSum, dealerNumberOfRounds);
           return;
@@ -677,7 +649,6 @@ function charlieCheck(cardValueList, playerSum) {
     cardValue = parseInt(cardValueList);
   }
 
-  console.log(cardValue);
   return cardValue;
 }
 
@@ -891,7 +862,6 @@ function dealerTurn() {
 }
 
 function checkIfOver21(playerSum) {
-  console.log(playerSum);
   if (playerSum > 21) {
     return true;
   } else {
@@ -900,9 +870,6 @@ function checkIfOver21(playerSum) {
 }
 
 function stand(cardSum2, dealerSum, cardContainerList, shuffledValues, shuffledSuits, dealerAceBool, message, dealerNumberOfRounds) {
-  console.log("dealer turn");
-  console.log(dealerSum);
-  console.log(cardSum2);
   if (dealerNumberOfRounds == 8) {
     return;
   }
@@ -939,7 +906,6 @@ function stand(cardSum2, dealerSum, cardContainerList, shuffledValues, shuffledS
   if (dealerAceBool == false && dealerSoftHand == true) {
     if (dealerSum > 17) {
       dealerSum = dealerSum - 10;
-      console.log(dealerSum);
       if (dealerSum > 21) { // if card sum doesnt go under 21 then user loses
         showFrontSide();
         message.innerHTML = "Dealer went over 21! Player <span style='color: green'>wins</span>!";
@@ -962,7 +928,6 @@ function stand(cardSum2, dealerSum, cardContainerList, shuffledValues, shuffledS
         hitDealer(shuffledValues, shuffledSuits);
         dealerValueList = getCardValues(cardContainerList, 0, 5);
         dealerSum = checkForBlackjack(dealerValueList);
-        console.log(dealerSum);
         dealerNumberOfRounds = dealerNumberOfRounds + 1;
         stand(cardSum2, dealerSum, cardContainerList, shuffledValues, shuffledSuits, true, message, dealerNumberOfRounds);
       }
@@ -970,7 +935,6 @@ function stand(cardSum2, dealerSum, cardContainerList, shuffledValues, shuffledS
       hitDealer(shuffledValues, shuffledSuits);
       dealerValueList = getCardValues(cardContainerList, 0, 5);
       dealerSum = checkForBlackjack(dealerValueList);
-      console.log(dealerSum);
       dealerNumberOfRounds = dealerNumberOfRounds + 1;
       stand(cardSum2, dealerSum, cardContainerList, shuffledValues, shuffledSuits, true, message, dealerNumberOfRounds);
     }
@@ -1006,7 +970,6 @@ function stand(cardSum2, dealerSum, cardContainerList, shuffledValues, shuffledS
       hitDealer(shuffledValues, shuffledSuits);
       dealerValueList = getCardValues(cardContainerList, 0, 5);
       dealerSum = checkForBlackjack(dealerValueList);
-      console.log(dealerSum);
       dealerNumberOfRounds = dealerNumberOfRounds + 1;
       stand(cardSum2, dealerSum, cardContainerList, shuffledValues, shuffledSuits, true, message, dealerNumberOfRounds);
       return;
