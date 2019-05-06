@@ -64,9 +64,11 @@ def choice(dealer_hand, player_hand):
     dealer_face_up = dealer_hand[0]
     if (p_hand_total <= 15):
         return True
-    elif (p_hand_total == 16):
-        if (dealer_face_up == 6):
+    elif (p_hand_total >= 14 and p_hand_total <= 16):
+        if (dealer_face_up == 5 or dealer_face_up == 6):
             return False
+        return True
+    elif (p_hand_total == 17 and dealer_face_up == 'A'):
         return True
     else:
         return False
@@ -78,8 +80,8 @@ def clear():
         os.system('clear')
 
 def print_results(dealer_hand, player_hand):
-    #print ("The dealer has a " + str(dealer_hand) + " for a total of " + str(total(dealer_hand)))
-    #print ("You have a " + str(player_hand) + " for a total of " + str(total(player_hand)))
+    print ("The dealer has a " + str(dealer_hand) + " for a total of " + str(total(dealer_hand)))
+    print ("You have a " + str(player_hand) + " for a total of " + str(total(player_hand)))
     pass
 
 def blackjack(dealer_hand, player_hand):
@@ -87,12 +89,16 @@ def blackjack(dealer_hand, player_hand):
     global losses
     if total(player_hand) == 21:
         print_results(dealer_hand, player_hand)
-        #print ("Congratulations! You got a Blackjack!\n")
-        wins += 1
+        if total(dealer_hand) == 21:
+            print('Draw!')
+            draws += 1
+        else:
+            print ("Congratulations! You got a Blackjack!\n")
+            wins += 1
         return True
     elif total(dealer_hand) == 21:
         print_results(dealer_hand, player_hand)
-        #print ("Sorry, you lose. The dealer got a blackjack.\n")
+        print ("Sorry, you lose. The dealer got a blackjack.\n")
         losses += 1
         return True
     return False
@@ -103,31 +109,35 @@ def score(dealer_hand, player_hand):
         global draws
         if total(player_hand) == 21:
             print_results(dealer_hand, player_hand)
-            #print ("Congratulations! You got a Blackjack!\n")
-            wins += 1
+            if total(dealer_hand) == 21:
+                print('Draw!')
+                draws += 1
+            else:
+                print ("Congratulations! You got a Blackjack!\n")
+                wins += 1
         elif total(dealer_hand) == 21:
             print_results(dealer_hand, player_hand)
-            #print ("Sorry, you lose. The dealer got a blackjack.\n")
+            print ("Sorry, you lose. The dealer got a blackjack.\n")
             losses += 1
         elif total(player_hand) > 21:
             print_results(dealer_hand, player_hand)
-            #print ("Sorry. You busted. You lose.\n")
+            print ("Sorry. You busted. You lose.\n")
             losses += 1
         elif total(dealer_hand) > 21:
             print_results(dealer_hand, player_hand)
-            #print ("Dealer busts. You win!\n")
+            print ("Dealer busts. You win!\n")
             wins += 1
         elif total(player_hand) < total(dealer_hand):
             print_results(dealer_hand, player_hand)
-            #print ("Sorry. Your score isn't higher than the dealer. You lose.\n")
+            print ("Sorry. Your score isn't higher than the dealer. You lose.\n")
             losses += 1
         elif total(player_hand) > total(dealer_hand):
             print_results(dealer_hand, player_hand)
-            #print ("Congratulations. Your score is higher than the dealer. You win\n")
+            print ("Congratulations. Your score is higher than the dealer. You win\n")
             wins += 1
         else:
             print_results(dealer_hand, player_hand)
-            #print("Deal.")
+            print("Draw!")
             draws += 1
 
 def game():
@@ -149,52 +159,40 @@ def game():
 
         if i % 10000 == 0:
             print('Starting game %s' %(i))
-        #print("-"*30+"\n")
-        #print("    WINS: %s   LOSSES: %s   DRAWS: %s\n" % (wins, losses,draws))
-        #print("-"*30+"\n")
+            
+        print("-"*30+"\n")
+        print("    WINS: %s   LOSSES: %s   DRAWS: %s\n" % (wins, losses,draws))
+        print("-"*30+"\n")
 
         dealer_hand = deal(deck)
         player_hand = deal(deck)
 
-        #print ("The dealer is showing a " + str(dealer_hand[0]))
-        #print ("You have a " + str(player_hand) + " for a total of " + str(total(player_hand)))
+        print ("The dealer is showing a " + str(dealer_hand[0]))
+        print ("You have a " + str(player_hand) + " for a total of " + str(total(player_hand)))
         new_game = blackjack(dealer_hand, player_hand)
         p_choice = ''
         if not new_game:
             '''
-            UNCOMMENT THIS SECTION FOR STRATEGY: HIT UNTIL > 17
-            while total(player_hand) < 17:
-                print('Player Hit...')
-                hit(player_hand)
-                print(player_hand)
-                print("Player hand total: " + str(total(player_hand)))
-                if total(player_hand) > 21:
-                    print('You busted')
-                    losses += 1
-                    new_game = True
-            '''
-
-            '''
             STRATEGY: USING PROBABILITY CHART ON SLIDE 11 IN THE PPT.
             '''
             while choice(dealer_hand, player_hand):
-                #print('Player Hit...')
+                print('Player Hit...')
                 hit(player_hand)
-                #print(player_hand)
-                #print('Player hand total: ' + str(total(player_hand)))
+                print(player_hand)
+                print('Player hand total: ' + str(total(player_hand)))
                 if total(player_hand) > 21:
-                    #print('You busted')
+                    print('Sorry! You busted. You lose.')
                     losses += 1
                     new_game = True
-
+            
         if not new_game:
             while total(dealer_hand) < 17:
-                #print('Dealer Hit...')
+                print('Dealer Hit...')
                 hit(dealer_hand)
-                #print(dealer_hand)
-                #print('Dealer hand total: ' + str(total(dealer_hand)))
+                print(dealer_hand)
+                print('Dealer hand total: ' + str(total(dealer_hand)))
                 if total(dealer_hand) > 21:
-                    #print('Dealer busts, you win!')
+                    print('Dealer busts, you win!')
                     wins += 1
                     new_game = True
             if not new_game:
@@ -216,9 +214,7 @@ def game():
                 draws75 = draws
 
             play_again()
-    #print("-"*30+"\n")
-    #print("    WINS: %s   LOSSES: %s   DRAWS: %s\n" % (wins, losses,draws))
-    #print("-"*30+"\n")
+
     total_games = wins + losses + draws
     print('Total games: %s' %(total_games))
 
@@ -243,7 +239,7 @@ def game():
     print('Draw-rate: ' + str(draws/total_games))
 
     average_win = ((wins25/25000) + (wins50/50000) + (wins75/75000) + (wins/total_games)) / 4
-    print('Average win-rate: %s' %(str(average_win)))
+    print('\nAverage win-rate: %s' %(str(average_win)))
 
     average_loss = ((losses25/25000) + (losses50/50000) + (losses75/75000) + (losses/total_games)) / 4
     print('Average loss-rate: %s' %(str(average_loss)))
