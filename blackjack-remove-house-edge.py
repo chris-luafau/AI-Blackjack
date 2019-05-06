@@ -83,6 +83,7 @@ def blackjack(dealer_hand, player_hand):
     global wins
     global losses
     global draws
+    
     if total(player_hand) == 21:
         if total(dealer_hand) == 21:
             draws += 1

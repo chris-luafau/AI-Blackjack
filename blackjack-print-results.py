@@ -87,10 +87,12 @@ def print_results(dealer_hand, player_hand):
 def blackjack(dealer_hand, player_hand):
     global wins
     global losses
+    global draws
+    
     if total(player_hand) == 21:
         print_results(dealer_hand, player_hand)
         if total(dealer_hand) == 21:
-            print('Draw!')
+            print("Two Blackjacks! It's a Draw!")
             draws += 1
         else:
             print ("Congratulations! You got a Blackjack!\n")
@@ -137,7 +139,7 @@ def score(dealer_hand, player_hand):
             wins += 1
         else:
             print_results(dealer_hand, player_hand)
-            print("Draw!")
+            print("It's a draw!")
             draws += 1
 
 def game():
